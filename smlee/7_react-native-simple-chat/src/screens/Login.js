@@ -5,6 +5,8 @@ import { Image, Input, Button } from "../components";
 import { images } from "../utils/images";
 import { validateEmail, removeWhiteSpace } from "../utils/common";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { login } from "../utils/firebase";
+import { Alert } from "react-native";
 
 const Container = styled.View`
     flex: 1;
@@ -49,8 +51,13 @@ const Login = ({navigation}) => {
         setPassword(removeWhiteSpace(password));
     };
 
-    const _hanldeLoginButtonPress = () => {
-        print("login button clicked");
+    const _hanldeLoginButtonPress = async() => {
+        try {
+            const user = await login({ email, password });
+            Alert.alert("Login Success", user.email);
+        } catch (e) {
+            Alert.alert("Login Error", e.message);
+        }
     };
 
     return(
