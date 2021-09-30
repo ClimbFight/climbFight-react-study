@@ -13,14 +13,32 @@ export const theme = {
     errorText: colors.red,
 
     imageBackground: colors.grey_0,
+    imageButtonBackground: colors.grey_1,
+    imageButtonIcon: colors.white,
 
     label: colors.grey_1,
     inputPlaceholder: colors.grey_1,
     inputBorder: colors.grey_1,
+    inputDisableBackground: colors.grey_0,
 
     buttonBackground: colors.blue,
     buttonTitle: colors.white,
     buttonUnfilledTitle: colors.blue,
+    buttonLogout: colors.red,
 
     headerTintColor: colors.black,
+
+    spinnerBackground: colors.black,
+    spinnerIndicator: colors.white,
+
+    tabActiveColor: colors.blue,
+    tabInactiveColor: colors.grey_1,
+
+    listBorder: colors.grey_0,
+    listTime: colors.grey_1,
+    listDescription: colors.grey_1,
+    listIcon: colors.black,
+
+    sendButtonActivate: colors.blue,
+    sendButtonInactivate: colors.grey_1,
 };

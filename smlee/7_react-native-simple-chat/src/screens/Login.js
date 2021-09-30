@@ -1,10 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
 import { Image, Input, Button } from "../components";
 import { images } from "../utils/images";
 import { validateEmail, removeWhiteSpace } from "../utils/common";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { login } from "../utils/firebase";
+import { Alert } from "react-native";
+import { ProgressContext, UserContext } from "../contexts";
 
 const Container = styled.View`
     flex: 1;
@@ -26,6 +29,8 @@ const ErrorText = styled.Text`
 `
 
 const Login = ({navigation}) => {
+    const { spinner } = useContext(ProgressContext);
+
     const [email, setEmail] = useState('');
     const [password, setPassword ] = useState('');
     const passwordRef = useRef();
@@ -33,6 +38,8 @@ const Login = ({navigation}) => {
     const [disabled, setDisabled] = useState(true);
 
     const insets = useSafeAreaInsets();
+
+    const { dispatch } = useContext(UserContext);
 
     useEffect(() => {
         setDisabled(!(email && password && !errorMessage));
@@ -49,8 +56,17 @@ const Login = ({navigation}) => {
         setPassword(removeWhiteSpace(password));
     };
 
-    const _hanldeLoginButtonPress = () => {
-        print("login button clicked");
+    const _hanldeLoginButtonPress = async() => {
+        try {
+            spinner.start();
+
+            const user = await login({ email, password });
+            dispatch(user);
+        } catch (e) {
+            Alert.alert("Login Error", e.message);
+        } finally {
+            spinner.stop();
+        }
     };
 
     return(

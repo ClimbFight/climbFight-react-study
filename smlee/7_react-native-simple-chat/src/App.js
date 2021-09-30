@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import Navigation from './navigations';
 import { images } from './utils/images'
+import { ProgressProvider, UserProvider } from "./contexts";
 
 const cacheImages = images => {
   return images.map(image => {
@@ -35,8 +36,12 @@ const App = () => {
 
   return isReady ? (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle="dark-content" />
-      <Navigation />
+      <UserProvider>
+        <ProgressProvider>
+          <StatusBar barStyle="dark-content" />
+          <Navigation />
+        </ProgressProvider>
+      </UserProvider>
     </ThemeProvider>
   ) : (
     <AppLoading startAsync={_loadAssets} onFinish={() => setIsReady(true)} onError={console.warn} />
