@@ -15,8 +15,7 @@ const MainStack = () => {
             screenOptions={{
                 headerTitleAlign: 'center',
                 headerTintColor: theme.headerTintColor,
-                cardStyle: { backgroundColor: theme.backgroundColor },
-                headerBackTitleVisible: false,
+                cardStyle: { backgroundColor: theme.backgroundColor },                
             }}
             >
             <Stack.Screen name="Main" component={MainTab} />
