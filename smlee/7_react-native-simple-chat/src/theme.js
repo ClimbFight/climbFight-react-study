@@ -33,4 +33,9 @@ export const theme = {
 
     tabActiveColor: colors.blue,
     tabInactiveColor: colors.grey_1,
+
+    listBorder: colors.grey_0,
+    listTime: colors.grey_1,
+    listDescription: colors.grey_1,
+    listIcon: colors.black,
 };
