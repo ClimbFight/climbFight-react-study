@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Button, Image, Input } from '../components/index';
 import { images } from "../utils/images";
 import { signup } from "../utils/firebase";
-import { ProgressContext } from "../contexts";
+import { ProgressContext, UserContext } from "../contexts";
 
 const Container = styled.View`
     flex: 1;
@@ -42,6 +42,8 @@ const Signup = () => {
     const passwordConfirmRef = useRef();
     const didMountRef = useRef();
 
+    const { dispatch } = useContext(UserContext);
+
     useEffect(() => {
         if (didMountRef.current) {
             let _errorMessage = '';
@@ -74,7 +76,7 @@ const Signup = () => {
 
             const user = await signup({ email, password, name, photoUrl });
             console.log(user);
-            Alert.alert("Signup Success", user.email);
+            dispatch(user);
         } catch (e) {
             Alert.alert("Signup Error", e.message);
         } finally {
