@@ -19,13 +19,18 @@ export const theme = {
     label: colors.grey_1,
     inputPlaceholder: colors.grey_1,
     inputBorder: colors.grey_1,
+    inputDisableBackground: colors.grey_0,
 
     buttonBackground: colors.blue,
     buttonTitle: colors.white,
     buttonUnfilledTitle: colors.blue,
+    buttonLogout: colors.red,
 
     headerTintColor: colors.black,
 
     spinnerBackground: colors.black,
     spinnerIndicator: colors.white,
+
+    tabActiveColor: colors.blue,
+    tabInactiveColor: colors.grey_1,
 };
