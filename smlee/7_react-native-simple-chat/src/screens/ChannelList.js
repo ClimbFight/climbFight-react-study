@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import styled, { ThemeContext } from 'styled-components';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
-import { DB } from '../utils/firebase'
+import { DB } from '../utils/firebase';
+import moment from 'moment';
 
 const Container = styled.View`
     flex: 1;
@@ -38,8 +39,14 @@ const ItemTime = styled.Text`
     color: ${({ theme }) => theme.listTime};
 `;
 
+const getDateOrTime = ts => {
+    const now = moment().startOf('day');
+    const target = moment(ts).startOf('day');
+    return moment(ts).format(now.diff(target, 'days') > 0 ? 'MM/DD' : 'HH:mm');
+};
+
 const Item = React.memo(
-    ({ item: {id, title, description, createdAt,}, onPress }) => {
+    ({ item: {id, title, description, createAt,}, onPress }) => {
         const theme = useContext(ThemeContext);    
         return(
             <ItemContainer onPress={() => onPress({ id, title })}>
@@ -47,7 +54,7 @@ const Item = React.memo(
                     <ItemTitle>{title}</ItemTitle>
                     <ItemDescription>{description}</ItemDescription>
                 </ItemTextContainer>
-                <ItemTime>{createdAt}</ItemTime>
+                <ItemTime>{getDateOrTime(createAt)}</ItemTime>
                 <MaterialIcons name="keyboard-arrow-right" size={24} color={theme.listIcon} />
             </ItemContainer>
         );
@@ -59,7 +66,7 @@ const ChannelList = ({ navigation }) => {
 
     useEffect(() => {
         const unsubscribe = DB.collection('channels')
-                              .orderBy('createdAt', 'desc')
+                              .orderBy('createAt', 'desc')
                               .onSnapshot(snapshot => {
                                   const list = [];
                                   snapshot.forEach(doc => {                                      
